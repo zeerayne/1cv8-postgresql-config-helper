@@ -160,7 +160,6 @@ if disable_synchronous_commit:
 # read config file all lines
 with open(config_file_path) as f:
     lines = f.readlines()
-# for each line search mapping line and add additional line with mapping
 new_lines = []
 for line in lines:
     # if line doesn't contain known parameter
@@ -170,7 +169,6 @@ for line in lines:
     # remove comment from line
     if line.startswith("#"):
         line = line[1:]
-    # line contains map the first thing is to find mapping parts
     line_parts = line.split(" ")
     parameter_name = line_parts[0]
     new_line = f"{parameter_name} = {configmap[parameter_name]}{os.linesep}"
