@@ -184,4 +184,3 @@ if args.backup:
 # write new config file
 with open(config_file_path, "w") as f:
     f.writelines(new_lines)
-    
