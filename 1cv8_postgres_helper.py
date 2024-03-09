@@ -1,5 +1,6 @@
 import argparse
 import os
+import platform
 import time
 
 from enum import Enum
@@ -75,7 +76,7 @@ def sizeof_fmt(
     value: int, suffix: str = "B", radix: int = 1024, radix_suffix: str = ""
 ):
     for unit in [""] + unit_list(radix_suffix):
-        if abs(value) < radix:
+        if abs(value) < radix or value % radix > 0:
             return f"{value:.0f}{unit}{suffix}"
         value /= radix
     return f'{value:.0f}{"Y"+ radix_suffix}{suffix}'
@@ -107,7 +108,7 @@ disable_synchronous_commit = not args.synchronous_commit
 
 shared_buffers = mem / 4
 random_page_cost = 1.1 if storage == StorageType.ssd else 2.0
-effective_io_concurrency = 2 if storage == StorageType.ssd else 1
+effective_io_concurrency = 2 if storage == StorageType.ssd and platform.system() != "Windows" else 0
 
 configmap = {
     "row_security": "off",
@@ -115,7 +116,7 @@ configmap = {
     "shared_buffers": sizeof_fmt(shared_buffers),
     "temp_buffers": "256MB",
     "work_mem": sizeof_fmt(mem / 64),
-    "maintenance_work_mem": sizeof_fmt(mem / 16),
+    "maintenance_work_mem": sizeof_fmt(min(mem / 16, 2047 * 2 ** 20)),
     "fsync": "on",
     "synchronous_commit": "on",
     "checkpoint_completion_target": 0.9,
