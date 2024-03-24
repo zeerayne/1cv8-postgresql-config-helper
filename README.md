@@ -5,18 +5,18 @@
 
 ## Показать встроенную справку
 
-```sh
-python 1cv8_postgres_helper.py --help
+```powershell
+1cv8_postgres_helper.exe --help
 ```
 
 ## Наиболее простой вариант
 
-```sh
-python 1cv8_postgres_helper.py --config postgresql.example.conf --mem 32GB
+```powershell
+1cv8_postgres_helper.exe --config postgresql.example.conf --mem 32GB
 ```
 
 ## Все доступные аргументы
 
-```sh
-python 1cv8_postgres_helper.py --config postgresql.example.conf --mem 32GB --cpu 8 --storage ssd --disable-synchronous-commit --enable-group-commit --no-backup
+```powershell
+1cv8_postgres_helper.exe --config postgresql.example.conf --mem 32GB --cpu 8 --storage ssd --disable-synchronous-commit --enable-group-commit --no-backup
 ```
