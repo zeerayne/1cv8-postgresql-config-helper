@@ -11,8 +11,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Package Application
         uses: JackMcKew/pyinstaller-action-windows@main
-        with:
-          path: src
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
